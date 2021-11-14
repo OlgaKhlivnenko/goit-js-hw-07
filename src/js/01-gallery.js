@@ -1,5 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
+import { basicLightbox } from './basicLightbox.min.js'
 
 const galleryContainer = document.querySelector(`.gallery`);
 
@@ -11,17 +12,17 @@ function createImageCardsMarkup(items) {
     return items
         .map(({ preview, original, description}) => {
             return `
-            <div class="gallery__item">
-  <a class="gallery__link" href="#">
-    <img
-      class="gallery__image"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
-    />
-  </a>
-</div>
-    `;
+              <div class="gallery__item">
+                <a class="gallery__link" href="#">
+                  <img
+                    class="gallery__image"
+                    src="${preview}"
+                    data-source="${original}"
+                    alt="${description}"
+                  />
+                </a>
+              </div>
+                  `;
         })
         .join(``);  
 }
@@ -30,4 +31,13 @@ function onImageClick(evt) {
     const clickEl = evt.target;
     console.log(clickEl.dataset.source);
 
+};
+function onUnfollow(evt) {
+  e.preventDefault();
+  alert('Скрипт сработал');
 }
+const instance = basicLightbox.create(`
+    <img src="assets/images/image.png" width="800" height="600">
+`)
+
+instance.show()
