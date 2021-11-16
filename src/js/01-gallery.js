@@ -2,7 +2,7 @@ import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
 const galleryContainer = document.querySelector(`.gallery`);
-
+  
 const cardsMarkup = createImageCardsMarkup(galleryItems);
 galleryContainer.insertAdjacentHTML(`beforeend`, cardsMarkup);
 galleryContainer.addEventListener(`click`, onImageClick);
@@ -30,10 +30,17 @@ function onImageClick(evt) {
     evt.preventDefault();
   const clickEl = evt.target;
   const url = clickEl.dataset.source;
-  console.log(url);
-  
-  const instance = basicLightbox.create(`
-    <img src="${url}">
-`)
-instance.show()
+  const instance = basicLightbox.create(`<img src="${url}">`)
+  instance.show()
+
+  // window.addEventListener(`keydown`, onModalClose);
 };
+
+// function onModalClose(evt) {
+
+//   if (evt.key === 'Escape') {
+//     visible.classList.remove(`.basicLightbox--visible`);
+//     instance.close()
+//   }
+//   console.log(evt);
+//  }
