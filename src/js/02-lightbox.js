@@ -3,7 +3,7 @@ import { galleryItems } from './gallery-items.js';
 const galleryContainer = document.querySelector(`.gallery`);
 const cardsMarkup = createImageCardsMarkup(galleryItems);
 galleryContainer.insertAdjacentHTML(`beforeend`, cardsMarkup);
-galleryContainer.addEventListener(`click`, onImageClick);
+
 
 function createImageCardsMarkup(items) {
     return items
@@ -16,17 +16,18 @@ function createImageCardsMarkup(items) {
         })
         .join(``);  
 }
+const lightbox = new SimpleLightbox('.gallery a', {
+    captionsType: 'attr',
+    captionsData: 'alt',
+    captionDelay: 250,
+    });
+        
+galleryContainer.addEventListener(`click`, onImageClick);
 function onImageClick(evt) {
     evt.preventDefault();
-    
-    const lightbox = new SimpleLightbox('.gallery a',
-        {
-            captionDelay: `250 ms`,
-
-          
-        });
-   
-	console.log(evt.target.alt);
-});
+    if (evt.target.nodeName !== `BUTTON`) {
+        return
+    }
     
 };
+    

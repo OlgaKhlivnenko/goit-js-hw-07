@@ -4,8 +4,8 @@ import { galleryItems } from './gallery-items.js';
 const galleryContainer = document.querySelector(`.gallery`);
   
 const cardsMarkup = createImageCardsMarkup(galleryItems);
-galleryContainer.insertAdjacentHTML(`beforeend`, cardsMarkup);
-galleryContainer.addEventListener(`click`, onImageClick);
+
+
 
 function createImageCardsMarkup(items) {
     return items
@@ -25,22 +25,18 @@ function createImageCardsMarkup(items) {
         })
         .join(``);  
 }
+galleryContainer.insertAdjacentHTML(`beforeend`, cardsMarkup);
+galleryContainer.addEventListener(`click`, onImageClick);
 
 function onImageClick(evt) {
     evt.preventDefault();
-  const clickEl = evt.target;
-  const url = clickEl.dataset.source;
-  const instance = basicLightbox.create(`<img src="${url}">`)
+  const url = evt.target.dataset.source;
+  const instance = basicLightbox.create(`<img src="${url}">`);
   instance.show()
 
-  // window.addEventListener(`keydown`, onModalClose);
+  document.addEventListener(`keydown`, evt => {
+    if (evt.key === 'Escape') {
+    return instance.close();
+  }
+  });
 };
-
-// function onModalClose(evt) {
-
-//   if (evt.key === 'Escape') {
-//     visible.classList.remove(`.basicLightbox--visible`);
-//     instance.close()
-//   }
-//   console.log(evt);
-//  }
