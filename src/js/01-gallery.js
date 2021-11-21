@@ -30,17 +30,25 @@ galleryContainer.addEventListener(`click`, onImageClick);
 
 
 function onImageClick(evt) {
-    evt.preventDefault();
+  evt.preventDefault();
+
+  if (evt.target.nodeName !== `IMG`) {
+    return
+  }
   const url = evt.target.dataset.source;
   const instance = basicLightbox.create(`<img src="${url}">`);
-  instance.show()
-  document.addEventListener(`keydown`, evt => {
+  instance.show();
+  
+  
+  document.addEventListener(`keydown`, onImageClose) 
+ 
+  
+  function onImageClose(evt) {
     if (evt.key === 'Escape') {
-    return instance.close();
-  }
-  });
-};
-function onImageClick(evt) {
-if (evt.target.nodeName !== `BUTTON`) {
-        return
+      console.log(evt.key);
+      instance.close();
+      document.removeEventListener(`keydown`, onImageClose);
     }
+};
+};
+
